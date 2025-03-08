@@ -99,12 +99,12 @@ on Channels.channel_id = channel_subscription.sub_channel_id
 JOIN Users on channel_subscription.sub_user_id = Users.user_id
 where Users.user_name = 'Alice';
 
+use SQL_DRILLS;
 -- List all messages in all channels by user Alice
 select content,message_user_id from messages
 join Channels
 on messages.message_channel_id = Channels.channel_id
 JOIN Users on Users.user_id = messages.message_user_id
-join organizations on Channels.organization_id = organizations.organization_id 
 where Users.user_name = 'Alice';
 
 -- List all messages in #random by user Bob.
@@ -128,11 +128,11 @@ group by Users.user_name order by Users.user_name  desc;
 --  List the count of messages per user per channel.
 
 select Users.user_name as "User",Channels.channel_name as Channel, count(content) as "Message Count" from messages
-JOIN Users
+LEFT JOIN Users
 on messages.message_user_id = Users.user_id
-join Channels
+LEFT JOIN Channels
 ON messages.message_channel_id = Channels.channel_id
 GROUP BY Users.user_name, Channels.channel_name
-ORDER BY Users.user_name ASC, Channels.channel_name ASC;
+
 
 
