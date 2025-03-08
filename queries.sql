@@ -114,16 +114,17 @@ JOIN Channels ON messages.message_channel_id = Channels.channel_id
 JOIN Users ON Users.user_id = messages.message_user_id 
 WHERE Users.user_name = 'Bob' AND Channels.channel_name = '#random';
 
-
 -- list the count of messages across all channels per user. (Hint: COUNT, GROUP BY.)
 -- The title of the user's name column should be User Name and the title of the count column should be Message Count.
 --  (The SQLite commands .mode column and .header on might be useful here.)
 -- The user names should be listed in reverse alphabetical order.
 
+
 select Users.user_name as "User Name", count(content) as "Message Count" from messages
 JOIN Users
 on messages.message_user_id = Users.user_id
 group by Users.user_name order by Users.user_name  desc;
+
 
 --  List the count of messages per user per channel.
 
